@@ -5,11 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "AbilitySystemComponent.h"
+#include "AbilitySystemInterface.h"
 #include "ARPGBaseCharacter.generated.h"
 
 
 UCLASS(config=Game)
-class AARPGBaseCharacter : public ACharacter
+class AARPGBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -37,8 +39,16 @@ class AARPGBaseCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
+	/** Ability System Component. Required to use Gameplay Attributes and Gameplay Abilities. */
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
+	UAbilitySystemComponent* AbilitySystemComponent;
+
 public:
 	AARPGBaseCharacter();
+	//~ Begin IAbilitySystemInterface
+	/** Returns our Ability System Component. */
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	//~ End IAbilitySystemInterface
 	
 
 protected:

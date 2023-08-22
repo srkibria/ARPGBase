@@ -124,6 +124,8 @@ void AARPGBaseCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-
-
+UAbilitySystemComponent* AARPGBaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
 
