@@ -2,7 +2,6 @@
 
 
 #include "POIManager.h"
-#include "POI.h"
 
 // Sets default values for this component's properties
 UPOIManager::UPOIManager()
@@ -22,14 +21,31 @@ TArray<UPOI*>& UPOIManager::GetPOIs()
 		TSet<UActorComponent*> AvailableComponents = Owner->GetComponents();
 		for (UActorComponent*& CurrentComponent : AvailableComponents)
 		{
+			FPOIDescriptor POIInfo;
 			UPOI* CurrentPOI = Cast<UPOI>(CurrentComponent);
 			if (IsValid(CurrentPOI))
 			{
+				POIInfo.SelectedPOI = CurrentPOI;
+				POIInfo.Score = 0.f;
+				POIInfo.POIWorldTransform = CurrentPOI->GetComponentTransform();
+				CurrentPOIInfo.Add(POIInfo);
 				CurrentPOIs.Add(CurrentPOI);
 			}
 		}
 	}
 	return CurrentPOIs;
+}
+
+UPOI* UPOIManager::GetBestPOI()
+{
+	UPOI* Result = nullptr;
+	if (!CurrentPOIInfo.IsEmpty())
+	{
+		CurrentPOIInfo.Sort();
+		Result = CurrentPOIInfo[CurrentPOIInfo.Num() - 1].SelectedPOI;
+	}
+
+	return Result;
 }
 
 // Called when the game starts

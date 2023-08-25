@@ -16,6 +16,7 @@
 
 AARPGBaseCharacter::AARPGBaseCharacter()
 {
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -124,6 +125,8 @@ void AARPGBaseCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-
-
+UAbilitySystemComponent* AARPGBaseCharacter::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
 
