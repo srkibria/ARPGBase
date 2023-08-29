@@ -45,7 +45,7 @@ public:
 	/** Ability System Component. Required to use Gameplay Attributes and Gameplay Abilities. */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	UAbilitySystemComponent* AbilitySystemComponent;
-
+	
 	AARPGBaseCharacter();
 	//~ Begin IAbilitySystemInterface
 	/** Returns our Ability System Component. */
