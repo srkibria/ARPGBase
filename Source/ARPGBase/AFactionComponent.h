@@ -27,6 +27,13 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FGameplayTagContainer GetHostileFactions();
+	
+	UFUNCTION(BlueprintCallable)
+	FGameplayTagContainer GetFactionsByRelationship(TEnumAsByte<eRelationship> RelationshipSearch);
+	UFUNCTION(BlueprintCallable)
+	bool IsActorHostile(const AActor* ActorToCheck);
+
+	
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")

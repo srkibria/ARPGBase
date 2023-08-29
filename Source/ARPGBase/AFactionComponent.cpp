@@ -34,5 +34,25 @@ void UAFactionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 
 FGameplayTagContainer UAFactionComponent::GetHostileFactions()
 {
-	
+	return RelationshipMap.FindOrAdd(eRelationship::EHostile);
+}
+
+FGameplayTagContainer UAFactionComponent::GetFactionsByRelationship(TEnumAsByte<eRelationship> RelationshipSearch)
+{
+	return RelationshipMap.FindOrAdd(RelationshipSearch);
+}
+
+bool UAFactionComponent::IsActorHostile(const AActor* ActorToCheck)
+{
+	const UAFactionComponent* FactionComponent = ActorToCheck->GetComponentByClass<UAFactionComponent>();
+	if (IsValid(FactionComponent)) 
+	{
+		FGameplayTag FactionToCheck = FactionComponent->AFaction;
+		FGameplayTagContainer* HostileTags = RelationshipMap.Find(eRelationship::EHostile);
+		if (HostileTags)
+		{
+			return HostileTags->HasTagExact(FactionToCheck);
+		}
+	}
+	return false;
 }
