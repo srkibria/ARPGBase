@@ -17,6 +17,7 @@
 AARPGBaseCharacter::AARPGBaseCharacter()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
+	Faction = CreateDefaultSubobject<UAFactionComponent>(TEXT("Faction Component"));
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -50,6 +51,7 @@ AARPGBaseCharacter::AARPGBaseCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+
 }
 
 void AARPGBaseCharacter::BeginPlay()

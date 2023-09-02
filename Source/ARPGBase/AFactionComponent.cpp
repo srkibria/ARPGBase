@@ -56,3 +56,25 @@ bool UAFactionComponent::IsActorHostile(const AActor* ActorToCheck)
 	}
 	return false;
 }
+
+void UAFactionComponent::UpdateMembers()
+{
+	TArray<AActor*> MemberCandidates;
+	for (AActor* CurrentCandidate : KnownFactionMembers)
+	{
+		UAFactionComponent* FactionComponent = CurrentCandidate->GetComponentByClass<UAFactionComponent>();
+		if (IsValid(FactionComponent))
+		{
+			if (AFaction.MatchesTagExact(FactionComponent->GetCurrentFaction()))
+			{
+				MemberCandidates.Add(CurrentCandidate);
+			}
+		}
+	}
+	KnownFactionMembers = MemberCandidates;
+}
+
+FGameplayTag UAFactionComponent::GetCurrentFaction()
+{
+	return AFaction;
+}

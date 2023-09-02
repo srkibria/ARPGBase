@@ -7,6 +7,7 @@
 #include "InputActionValue.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
+#include "AFactionComponent.h"
 #include "ARPGBaseCharacter.generated.h"
 
 
@@ -68,6 +69,10 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
+	//Faction component
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
+	UAFactionComponent* Faction;
 
 public:
 	/** Returns CameraBoom subobject **/

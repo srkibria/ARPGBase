@@ -7,6 +7,10 @@
 #include "Components/ActorComponent.h"
 #include "AFactionComponent.generated.h"
 
+//Delegate
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFactionMembersChanged);
+
+//Faction Relationships
 UENUM(BlueprintType) 
 enum eRelationship : uint8
 {
@@ -16,7 +20,7 @@ enum eRelationship : uint8
 	eWary			UMETA(DisplayName = "Wary"),
 };
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
 class ARPGBASE_API UAFactionComponent : public UActorComponent
 {
 	GENERATED_BODY()
@@ -30,8 +34,16 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	FGameplayTagContainer GetFactionsByRelationship(TEnumAsByte<eRelationship> RelationshipSearch);
+	
 	UFUNCTION(BlueprintCallable)
 	bool IsActorHostile(const AActor* ActorToCheck);
+
+	/** This fuction checks tthe current list of faction members and removes anyone no longer in the faction*/
+	UFUNCTION(BlueprintCallable)
+	void UpdateMembers();
+
+	UFUNCTION(BlueprintCallable)
+	FGameplayTag GetCurrentFaction();
 
 	
 
@@ -39,6 +51,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
 	TMap<TEnumAsByte<eRelationship>, FGameplayTagContainer> RelationshipMap;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
+	AActor* LocalFactionLeader;
+
+	/** This is the last list of members that were in the same faction */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
+	TArray<AActor*> KnownFactionMembers;
+
 	/** Faction affilation This variable shows the faction that the character belongs to */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
 	FGameplayTag AFaction;
