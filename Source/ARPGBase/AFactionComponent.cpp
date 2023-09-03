@@ -69,14 +69,14 @@ FGameplayTagContainer UAFactionComponent::GetFactionsByRelationship(TEnumAsByte<
 
 bool UAFactionComponent::IsActorHostile(const AActor* ActorToCheck)
 {
-	const UAFactionComponent* FactionComponent = ActorToCheck->GetComponentByClass<UAFactionComponent>();
-	if (IsValid(FactionComponent)) 
+	// Remember to check every pointer, even if it's an input
+	if (IsValid(ActorToCheck))
 	{
-		FGameplayTag FactionToCheck = FactionComponent->AFaction;
-		FGameplayTagContainer* HostileTags = RelationshipMap.Find(eRelationship::EHostile);
-		if (HostileTags)
+		const UAFactionComponent* FactionComponent = ActorToCheck->GetComponentByClass<UAFactionComponent>();
+		if (IsValid(FactionComponent))
 		{
-			return HostileTags->HasTagExact(FactionToCheck);
+			FGameplayTag FactionToCheck = FactionComponent->AFaction;
+			return GetHostileFactions().HasTagExact(FactionToCheck);
 		}
 	}
 	return false;
@@ -87,12 +87,16 @@ void UAFactionComponent::UpdateMembers()
 	TArray<AActor*> MemberCandidates;
 	for (AActor* CurrentCandidate : KnownFactionMembers)
 	{
-		UAFactionComponent* FactionComponent = CurrentCandidate->GetComponentByClass<UAFactionComponent>();
-		if (IsValid(FactionComponent))
+		// Reminder to check pointers always	
+		if (IsValid(CurrentCandidate))
 		{
-			if (AFaction.MatchesTagExact(FactionComponent->GetCurrentFaction()))
+			UAFactionComponent* FactionComponent = CurrentCandidate->GetComponentByClass<UAFactionComponent>();
+			if (IsValid(FactionComponent))
 			{
-				MemberCandidates.Add(CurrentCandidate);
+				if (AFaction.MatchesTagExact(FactionComponent->GetCurrentFaction()))
+				{
+					MemberCandidates.Add(CurrentCandidate);
+				}
 			}
 		}
 	}
@@ -135,16 +139,16 @@ void UAFactionComponent::ChangeFaction(UAFactionComponent* FactionToChangeTo)
 
 	if (IsValid(CurrentLeader) && IsValid(NewLeader))
 	{
-		// Adds to the list of the new faction and broadcasts that the list has changed
+		// Update the faction leader to the new leader
+		LocalFactionLeader = NewLeader;
+		// Add the character to the new leaders faction list
 		NewLeader->Faction->KnownFactionMembers.AddUnique(this->GetOwner());
-		CurrentLeader->Faction->UpdateMembers();
-
-		//TO DO: Remove from old multicast of Current Leader
-		CurrentLeader->OnMembersChanged.RemoveAll(this);
-
-		// Binds to the new leader's delegate and broadcasts that the new leader's members has changed
+		// Updates the Delegate to broadcast appropriately
 		NewLeader->Faction->OnMembersChanged.AddDynamic(this, &UAFactionComponent::UpdateMembersClient);
-		NewLeader->Faction->OnMembersChanged.Broadcast();
+		CurrentLeader->Faction->OnMembersChanged.RemoveAll(this);
+		// Updates members for both leaders and broadcasts changes
+		CurrentLeader->Faction->UpdateMembers();
+		NewLeader->Faction->UpdateMembers();
+		
 	}
-	LocalFactionLeader = NewLeader;
 }

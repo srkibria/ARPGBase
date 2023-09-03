@@ -20,7 +20,7 @@ enum eRelationship : uint8
 	ENeutral		UMETA(DisplayName = "Neutral"),
 	EFriendly		UMETA(DisplayName = "Friendly"),
 	EHostile		UMETA(DisplayName = "Hostile"),
-	eWary			UMETA(DisplayName = "Wary"),
+	EWary			UMETA(DisplayName = "Wary"),
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
@@ -76,7 +76,7 @@ protected:
 	TMap<TEnumAsByte<eRelationship>, FGameplayTagContainer> RelationshipMap;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
-	AActor* LocalFactionLeader;
+	AActor* LocalFactionLeader = nullptr;
 
 	/** This is the last list of members that were in the same faction */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
