@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+en// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -9,6 +9,9 @@
 
 //Delegate
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFactionMembersChanged);
+
+// Example of how to deal with multiple parameters. Put in Variable Type after Delegate name declaration
+// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSomeDelegate, float);
 
 //Faction Relationships
 UENUM(BlueprintType) 
@@ -42,10 +45,31 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void UpdateMembers();
 
+	void UpdateMembersClient();
+
 	UFUNCTION(BlueprintCallable)
 	FGameplayTag GetCurrentFaction();
 
-	
+	UFUNCTION(BlueprintCallable)
+	void ChangeFaction(UAFactionComponent* FactionToChangeTo);
+
+// Delegates
+public:
+	UPROPERTY(BlueprintAssignable)
+	FFactionMembersChanged OnMembersChanged;
+
+	/*
+	// Defines a 1 Param Delegate
+	UPROPERTY(BlueprintAssignable)
+	FSomeDelegate SomeDelegate;
+	*/
+
+	/*
+	//Defines a function to use with a 1 param delegate
+	UFUNCTION(BlueprintCallable)
+	void SomeFunctionOneParam(float FloatNumer)
+	*/
+
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")

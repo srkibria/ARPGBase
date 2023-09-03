@@ -46,7 +46,12 @@ public:
 	/** Ability System Component. Required to use Gameplay Attributes and Gameplay Abilities. */
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "Abilities")
 	UAbilitySystemComponent* AbilitySystemComponent;
-	
+
+	//Faction component
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
+	UAFactionComponent* Faction;
+
+
 	AARPGBaseCharacter();
 	//~ Begin IAbilitySystemInterface
 	/** Returns our Ability System Component. */
@@ -69,10 +74,6 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
-
-	//Faction component
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
-	UAFactionComponent* Faction;
 
 public:
 	/** Returns CameraBoom subobject **/
