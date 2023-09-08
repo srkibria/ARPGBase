@@ -11,7 +11,7 @@
 #include "ARPGBaseCharacter.generated.h"
 
 
-UCLASS(config=Game)
+UCLASS(config=Game, Blueprintable)
 class AARPGBaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()

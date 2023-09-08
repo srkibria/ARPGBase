@@ -13,3 +13,27 @@ AARPGBaseGameMode::AARPGBaseGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 }
+
+void AARPGBaseGameMode::LoadAllFactionActors() 
+{
+	AllFactionActors.Empty();
+	TArray<AActor*> FoundActors;
+	if (IsValid(GetWorld()))
+	{
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), FoundActors);
+		
+
+		for (AActor* ActorToCheck : FoundActors)
+		{
+			if (IsValid(ActorToCheck->GetComponentByClass<UAFactionComponent>()))
+			{
+				AllFactionActors.AddUnique(ActorToCheck);
+			}
+		}
+	}
+}
+
+TArray<AActor*> AARPGBaseGameMode::GetAllFactionActors()
+{
+	return AllFactionActors;
+}

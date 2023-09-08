@@ -58,10 +58,6 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FFactionMembersChanged OnMembersChanged;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
-	TArray<AActor*> AllFactionActors;
-
-
 
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
