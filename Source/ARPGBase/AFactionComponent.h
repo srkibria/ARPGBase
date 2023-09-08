@@ -1,4 +1,4 @@
-en// Fill out your copyright notice in the Description page of Project Settings.
+// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -57,18 +57,10 @@ public:
 public:
 	UPROPERTY(BlueprintAssignable)
 	FFactionMembersChanged OnMembersChanged;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
+	TArray<AActor*> AllFactionActors;
 
-	/*
-	// Defines a 1 Param Delegate
-	UPROPERTY(BlueprintAssignable)
-	FSomeDelegate SomeDelegate;
-	*/
-
-	/*
-	//Defines a function to use with a 1 param delegate
-	UFUNCTION(BlueprintCallable)
-	void SomeFunctionOneParam(float FloatNumer)
-	*/
 
 
 protected:
