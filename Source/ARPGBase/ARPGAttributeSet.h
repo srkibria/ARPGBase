@@ -23,46 +23,44 @@ class ARPGBASE_API UARPGAttributeSet : public UAttributeSet
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Health;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Health)
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Mana;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Mana)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Strength;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Strength)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Defence;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Defence)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Magic;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Magic)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData MagicDefense;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, MagicDefense)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Intelligence;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Intelligence)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Agility;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Agility)
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Luck;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Luck)
-	
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Dexterity;
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Dexterity)
 
 
 public:
-
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Health)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Mana)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Strength)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Defence)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Magic)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, MagicDefense)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Intelligence)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Agility)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Luck)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Dexterity)
 };
