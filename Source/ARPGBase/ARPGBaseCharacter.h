@@ -8,6 +8,7 @@
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
 #include "AFactionComponent.h"
+#include "ARPGAttributeSet.h"
 #include "ARPGBaseCharacter.generated.h"
 
 
@@ -39,6 +40,8 @@ class AARPGBaseCharacter : public ACharacter, public IAbilitySystemInterface
 	/** Look Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
+	UPROPERTY()
+	const UARPGAttributeSet* BaseAttributeSet;
 
 
 public:

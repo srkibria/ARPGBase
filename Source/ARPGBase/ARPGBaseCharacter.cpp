@@ -52,6 +52,11 @@ AARPGBaseCharacter::AARPGBaseCharacter()
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 
+	// Get the UMyAttributeSet from our Ability System Component. The Ability System Component will create and register one if needed.
+	BaseAttributeSet = AbilitySystemComponent->GetSet<UARPGAttributeSet>();
+
+	// We now have a pointer to the new UMyAttributeSet that we can use later. If it has an initialization function, this is a good place to call it.
+
 }
 
 void AARPGBaseCharacter::BeginPlay()

@@ -37,13 +37,23 @@ protected:
 
 
 public:
-	/* This set of helper functions cannot be implemented without an ability systemm component. Come back later
-	//~ Helper functions for "Health" attributes
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(UARPGAttributeSet, Health);
+	float GetHealth() const;
+	void SetHealth(float NewVal);
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(Health);
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(Health);
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(Health);
 
+	//~ Helper functions for "Health" attributes
+
+	/* This set of helper functions cannot be implemented without an ability systemm component. Come back later
+
+	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(UARPGAttributeSet, Health);
+	float GetHealth() const;
+	void SetHealth(float NewVal);
+	GAMEPLAYATTRIBUTE_VALUE_GETTER(Health);
+	GAMEPLAYATTRIBUTE_VALUE_SETTER(Health);
+	GAMEPLAYATTRIBUTE_VALUE_INITTER(Health);
 	//~ Helper Funtions for "Mana" attributes
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(UARPGAttributeSet, Mana);
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(Mana);
