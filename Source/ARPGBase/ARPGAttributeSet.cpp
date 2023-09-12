@@ -3,3 +3,7 @@
 
 #include "ARPGAttributeSet.h"
 
+void UARPGAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
+{
+
+}
