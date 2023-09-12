@@ -6,7 +6,7 @@
 #include "GameplayEffect.h"
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
-#include "Components/CapsuleComponent.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "Pickups.generated.h"
 
@@ -18,15 +18,17 @@ class ARPGBASE_API APickups : public AActor
 	
 	
 public:	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UCapsuleComponent* CapsuleComponent;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
-	UStaticMeshComponent* PickupMesh;
-
-
 	// Sets default values for this actor's properties
 	APickups();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float HealthIncrease = 0.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float ManaIncrease = 0.f;
+
+	UFUNCTION(BlueprintCallable)
+	UPARAM(DisplayName = "Actionable Actor") bool OnPickedUp(AActor* OverlappedActor);
 
 protected:
 	// Called when the game starts or when spawned
