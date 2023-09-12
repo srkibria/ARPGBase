@@ -59,17 +59,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Dexterity;
 
-<<<<<<< Updated upstream
-	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
-
-=======
 	virtual void PreAttributeChange
 	(
 		const FGameplayAttribute& Attribute,
 		float& NewValue
 	) override;
->>>>>>> Stashed changes
+
 public:
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Health)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, HealthMax)

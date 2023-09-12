@@ -3,20 +3,18 @@
 
 #include "ARPGAttributeSet.h"
 
-<<<<<<< Updated upstream
-void UARPGAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
-{
-
-=======
 void UARPGAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute,	float& NewValue) 
 {
 	if (Attribute == GetHealthAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetHealthMax());
 	}
-	if (Attribute == GetManaAttribute())
+	else if (Attribute == GetManaAttribute())
 	{
 		NewValue = FMath::Clamp(NewValue, 0.0f, GetManaMax());
 	}
->>>>>>> Stashed changes
+	else {
+		NewValue = FMath::Max(NewValue, 1.0f);
+	}
+
 }
