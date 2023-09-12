@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayEffect.h"
+#include "GameplayEffectExtension.h"
 #include "ARPGAttributeSet.generated.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
@@ -25,7 +27,13 @@ protected:
 	FGameplayAttributeData Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
+	FGameplayAttributeData HealthMax;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Mana;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
+	FGameplayAttributeData ManaMax;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Strength;
@@ -51,12 +59,22 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Dexterity;
 
+<<<<<<< Updated upstream
 	virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
 
 
+=======
+	virtual void PreAttributeChange
+	(
+		const FGameplayAttribute& Attribute,
+		float& NewValue
+	) override;
+>>>>>>> Stashed changes
 public:
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Health)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, HealthMax)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Mana)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, ManaMax)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Strength)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Defence)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Magic)

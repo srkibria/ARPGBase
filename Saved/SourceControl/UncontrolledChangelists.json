@@ -5,6 +5,10 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Epic/ARPGBase/Content/ARPGBaseAttribute.uasset",
+				"C:/Epic/ARPGBase/Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter.uasset",
+				"C:/Epic/ARPGBase/Content/BaseMap.umap",
+				"C:/Epic/ARPGBase/Content/Pickups/HealthPickup.uasset",
 				"I:/Users/Sabeer Kibria/Github/ARPGBase/ARPGBase/Content/BaseMap.umap",
 				"I:/Users/Sabeer Kibria/Github/ARPGBase/ARPGBase/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/T8/46ZIBNTTDDR3AOR2XC9VO6.uasset",
 				"I:/Users/Sabeer Kibria/Github/ARPGBase/ARPGBase/Content/__ExternalActors__/ThirdPerson/Maps/ThirdPersonMap/E/FR/LBG6LPN5JCL3FMVSI2CK6R.uasset",

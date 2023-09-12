@@ -32,25 +32,25 @@ public:
 	// Sets default values for this component's properties
 	UAFactionComponent();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category ="Faction")
 	FGameplayTagContainer GetHostileFactions();
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Faction")
 	FGameplayTagContainer GetFactionsByRelationship(TEnumAsByte<eRelationship> RelationshipSearch);
 	
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Faction")
 	bool IsActorHostile(const AActor* ActorToCheck);
 
 	/** This fuction checks tthe current list of faction members and removes anyone no longer in the faction*/
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Faction")
 	void UpdateMembers();
 
 	void UpdateMembersClient();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Faction")
 	FGameplayTag GetCurrentFaction();
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, Category = "Faction")
 	void ChangeFaction(UAFactionComponent* FactionToChangeTo);
 
 // Delegates
