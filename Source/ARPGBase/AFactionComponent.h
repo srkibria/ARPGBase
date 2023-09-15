@@ -32,6 +32,9 @@ public:
 	// Sets default values for this component's properties
 	UAFactionComponent();
 
+	UFUNCTION(BlueprintCallable, Category = "Faction")
+	TArray<AActor*> GetKnownFactionMembers();
+
 	UFUNCTION(BlueprintCallable, Category ="Faction")
 	FGameplayTagContainer GetHostileFactions();
 	

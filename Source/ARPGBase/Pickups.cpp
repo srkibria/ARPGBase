@@ -32,6 +32,7 @@ void APickups::Tick(float DeltaTime)
 
 bool APickups::OnPickedUp(AActor* OverlappedActor)
 {
+	//Need to add functionality to see if Actor is a player
 	AARPGBaseCharacter* RPGCharacter = Cast<AARPGBaseCharacter>(OverlappedActor);
 	if (IsValid(RPGCharacter))
 	{
@@ -39,6 +40,7 @@ bool APickups::OnPickedUp(AActor* OverlappedActor)
 		float NewHealth = ASC->GetNumericAttribute(UARPGAttributeSet::GetHealthAttribute()) + HealthIncrease;
 		ASC->SetNumericAttributeBase(UARPGAttributeSet::GetHealthAttribute(), NewHealth);
 		float NewMana = ASC->GetNumericAttribute(UARPGAttributeSet::GetManaAttribute()) + ManaIncrease;
+		ASC->SetNumericAttributeBase(UARPGAttributeSet::GetManaAttribute(), NewHealth);
 		return true;
 	}
 	return false;

@@ -14,8 +14,6 @@ UCLASS()
 class ARPGBASE_API APickups : public AActor
 {
 	GENERATED_BODY()
-
-	
 	
 public:	
 	// Sets default values for this actor's properties
@@ -26,7 +24,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float ManaIncrease = 0.f;
-
+	/* Additional Functionality needed to ensure that the actor is actually a player*/
 	UFUNCTION(BlueprintCallable)
 	UPARAM(DisplayName = "Actionable Actor") bool OnPickedUp(AActor* OverlappedActor);
 

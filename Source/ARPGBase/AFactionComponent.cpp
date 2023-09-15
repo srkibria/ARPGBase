@@ -43,6 +43,10 @@ void UAFactionComponent::BeginPlay()
 	
 }
 
+TArray<AActor*> UAFactionComponent::GetKnownFactionMembers() 
+{
+	return KnownFactionMembers;
+}
 
 // Called every frame
 void UAFactionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
