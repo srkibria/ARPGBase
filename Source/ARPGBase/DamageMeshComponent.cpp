@@ -6,49 +6,57 @@
 
 UDamageMeshComponent::UDamageMeshComponent()
 {
-	OnComponentHit.AddDynamic(this, &UDamageMeshComponent::OnHit);
-
-	this->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
+	OnComponentBeginOverlap.AddDynamic(this, &UDamageMeshComponent::OnOverlapBegin);
+	SetNotifyRigidBodyCollision(true);
 }
 
 
 
-void UDamageMeshComponent::SetDamage(float DamageValue) 
+void UDamageMeshComponent::SetWATK(float NewWATKValue) 
 {
-	Damage = DamageValue;
+	WATK = NewWATKValue;
 }
+void UDamageMeshComponent::SetWMATK(float NewWMATKValue)
+{
+	WMATK = NewWMATKValue;
+}
+
 
 void UDamageMeshComponent::StartSweep()
 {
-	this->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	HitMap.Empty();
+	bInSweep = true;
+	// SetNotifyRigidBodyCollision(true);
 }
 
 void UDamageMeshComponent::EndSweep()
 {
-	this->SetCollisionEnabled(ECollisionEnabled::PhysicsOnly);
 	DamagedActors.Empty();
+	bInSweep = false;
+	// SetNotifyRigidBodyCollision(false);
 }
 
 
-void UDamageMeshComponent::SetManaDepletion(float DepletionValue)
-{
-	ManaDepletion = DepletionValue;
-}
 
-void UDamageMeshComponent::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+
+void UDamageMeshComponent::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (DamagedActors.AddUnique(OtherActor) != -1) {
-		AARPGBaseCharacter* RPGCharacter = Cast<AARPGBaseCharacter>(OtherActor);
-		if (IsValid(RPGCharacter))
+	AARPGBaseCharacter* OwnerCharacter = Cast<AARPGBaseCharacter>(GetOwner());
+	UAbilitySystemComponent* ASC = OwnerCharacter->GetAbilitySystemComponent();
+	if (bInSweep)
+	{
+		int32* Result = HitMap.Find(OtherActor);
+		if (!Result && OtherActor != GetOwner())
 		{
-			UAbilitySystemComponent* ASC = RPGCharacter->GetAbilitySystemComponent();
-			float NewHealth = ASC->GetNumericAttribute(UARPGAttributeSet::GetHealthAttribute()) - Damage;
-			ASC->SetNumericAttributeBase(UARPGAttributeSet::GetHealthAttribute(), NewHealth);
-			float NewMana = ASC->GetNumericAttribute(UARPGAttributeSet::GetManaAttribute()) - ManaDepletion;
-			ASC->SetNumericAttributeBase(UARPGAttributeSet::GetManaAttribute(), NewMana);
-
+			HitMap.Add(OtherActor, 1);
+			AARPGBaseCharacter* RPGCharacter = Cast<AARPGBaseCharacter>(OtherActor);
+			if (IsValid(RPGCharacter))
+			{
+				float ATK = (WATK > 0.f) ? WATK + ASC->GetNumericAttribute(UARPGAttributeSet::GetStrengthAttribute()): WATK;
+				float MATK = (WMATK > 0.f) ? WMATK + ASC->GetNumericAttribute(UARPGAttributeSet::GetMagicAttribute()): WMATK;
+				bool bCritical = false;
+				RPGCharacter->OnDamaged.Broadcast(GetOwner(), ATK, MATK, bCritical);
+			}
 		}
 	}
-	
-	OnHitBP(HitComponent, OtherActor, OtherComp, NormalImpulse, Hit);
 }

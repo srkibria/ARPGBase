@@ -64,6 +64,16 @@ void AARPGBaseCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	// Gwt all Damage Mesh Components and Add them to the map
+	TArray<UActorComponent*> AllDamageMeshComponents = GetComponentsByClass(UDamageMeshComponent::StaticClass());
+
+	DamageComponentMap.Empty();
+
+	for (UActorComponent* CurrentComponent : AllDamageMeshComponents)
+	{
+		UDamageMeshComponent* DamageComp = Cast<UDamageMeshComponent>(CurrentComponent);
+		DamageComponentMap.Add(DamageComp->DamageType, DamageComp);
+	}
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
@@ -72,6 +82,13 @@ void AARPGBaseCharacter::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+	OnDamaged.AddDynamic(this, &AARPGBaseCharacter::DamageCalc);
+}
+void AARPGBaseCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason) 
+{
+	OnDamaged.RemoveDynamic(this, &AARPGBaseCharacter::DamageCalc);
+
+	Super::EndPlay(EndPlayReason);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -137,3 +154,29 @@ UAbilitySystemComponent* AARPGBaseCharacter::GetAbilitySystemComponent() const
 	return AbilitySystemComponent;
 }
 
+UDamageMeshComponent* AARPGBaseCharacter::GetDamageCompByTag(const FGameplayTag& DamageType) 
+{
+	UDamageMeshComponent* Result = nullptr;
+	if (DamageComponentMap.Find(DamageType))
+	{
+		Result = *DamageComponentMap.Find(DamageType);
+	}
+	return Result;
+}
+
+void AARPGBaseCharacter::DamageCalc(AActor* Attacker, float ATK, float MATK, bool bCritical) 
+{
+	if (IsValid(Attacker))
+	{
+		if (Faction->IsActorHostile(Attacker))
+		{
+			float CurrentDefense = AbilitySystemComponent->GetNumericAttribute(UARPGAttributeSet::GetDefenseAttribute());
+			float CurrentMDefense = AbilitySystemComponent->GetNumericAttribute(UARPGAttributeSet::GetMagicDefenseAttribute());
+			float Damage = (FMath::Max(ATK - CurrentDefense, 0.f) + FMath::Max(MATK - CurrentMDefense, 0.f));
+			Damage = (bCritical) ? Damage * 1.5 : Damage;
+
+			float NewHealth = AbilitySystemComponent->GetNumericAttribute(UARPGAttributeSet::GetHealthAttribute()) - Damage;
+			AbilitySystemComponent->SetNumericAttributeBase(UARPGAttributeSet::GetHealthAttribute(), NewHealth);
+		}
+	}
+}

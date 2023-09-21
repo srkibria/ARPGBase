@@ -39,7 +39,7 @@ protected:
 	FGameplayAttributeData Strength;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
-	FGameplayAttributeData Defence;
+	FGameplayAttributeData Defense;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "RPG Stats")
 	FGameplayAttributeData Magic;
@@ -72,7 +72,7 @@ public:
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Mana)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, ManaMax)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Strength)
-	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Defence)
+	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Defense)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Magic)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, MagicDefense)
 	ATTRIBUTE_ACCESSORS(UARPGAttributeSet, Intelligence)

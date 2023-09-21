@@ -9,8 +9,10 @@
 #include "AbilitySystemInterface.h"
 #include "AFactionComponent.h"
 #include "ARPGAttributeSet.h"
+#include "DamageMeshComponent.h"
 #include "ARPGBaseCharacter.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnDamagedSignature, AActor*, Instigator, float, ATK, float, MATK, bool, bCritical);
 
 UCLASS(config=Game, Blueprintable)
 class AARPGBaseCharacter : public ACharacter, public IAbilitySystemInterface
@@ -44,6 +46,7 @@ class AARPGBaseCharacter : public ACharacter, public IAbilitySystemInterface
 	const UARPGAttributeSet* BaseAttributeSet;
 
 
+
 public:
 
 	/** Ability System Component. Required to use Gameplay Attributes and Gameplay Abilities. */
@@ -54,13 +57,25 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Faction")
 	UAFactionComponent* Faction;
 
+	UPROPERTY(BlueprintReadWrite)
+	bool bUsingAbility = false;
+
+	UFUNCTION(BlueprintCallable)
+	UDamageMeshComponent* GetDamageCompByTag(const FGameplayTag& DamageType);
+
+	UFUNCTION(BlueprintCallable)
+	void DamageCalc(AActor* Attacker, float ATK, float MATK, bool bCritical);
 
 	AARPGBaseCharacter();
-	//~ Begin IAbilitySystemInterface
+	//~ Begin IAbilitdySystemInterface
 	/** Returns our Ability System Component. */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	//~ End IAbilitySystemInterface
 	
+//Delegates
+public:
+	UPROPERTY(BlueprintAssignable)
+	FOnDamagedSignature OnDamaged;
 
 protected:
 
@@ -69,6 +84,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	UPROPERTY(VisibleAnywhere, Category = "Damage Interactions")
+	TMap<FGameplayTag, UDamageMeshComponent*> DamageComponentMap;
 			
 
 protected:
@@ -77,6 +95,8 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
+
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:
 	/** Returns CameraBoom subobject **/
