@@ -85,7 +85,20 @@ bool UAFactionComponent::IsActorHostile(const AActor* ActorToCheck)
 	}
 	return false;
 }
-
+bool UAFactionComponent::IsActorInFaction(const AActor* ActorToCheck)
+{
+	// Remember to check every pointer, even if it's an input
+	if (IsValid(ActorToCheck))
+	{
+		const UAFactionComponent* FactionComponent = ActorToCheck->GetComponentByClass<UAFactionComponent>();
+		if (IsValid(FactionComponent))
+		{
+			FGameplayTag FactionToCheck = FactionComponent->AFaction;
+			return FactionToCheck.MatchesTagExact(AFaction);
+		}
+	}
+	return false;
+}
 void UAFactionComponent::UpdateMembers()
 {
 	TArray<AActor*> MemberCandidates;

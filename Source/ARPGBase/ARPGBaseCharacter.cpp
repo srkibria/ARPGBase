@@ -168,7 +168,7 @@ void AARPGBaseCharacter::DamageCalc(AActor* Attacker, float ATK, float MATK, boo
 {
 	if (IsValid(Attacker))
 	{
-		if (Faction->IsActorHostile(Attacker))
+		if (!Faction->IsActorInFaction(Attacker))
 		{
 			float CurrentDefense = AbilitySystemComponent->GetNumericAttribute(UARPGAttributeSet::GetDefenseAttribute());
 			float CurrentMDefense = AbilitySystemComponent->GetNumericAttribute(UARPGAttributeSet::GetMagicDefenseAttribute());

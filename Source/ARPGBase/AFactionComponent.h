@@ -44,6 +44,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Faction")
 	bool IsActorHostile(const AActor* ActorToCheck);
 
+	UFUNCTION(BlueprintCallable, Category = "Faction")
+	bool IsActorInFaction(const AActor* ActorToCheck);
+
+
 	/** This fuction checks tthe current list of faction members and removes anyone no longer in the faction*/
 	UFUNCTION(BlueprintCallable, Category = "Faction")
 	void UpdateMembers();
