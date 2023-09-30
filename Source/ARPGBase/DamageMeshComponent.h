@@ -29,11 +29,11 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage")
 	float WMATK = 0.0f;
-	
-	bool bInSweep = false;
-	
 
 public:
+	UPROPERTY(BlueprintReadOnly)
+	bool bInSweep = false;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Damage")
 	FGameplayTag DamageType;
 	
