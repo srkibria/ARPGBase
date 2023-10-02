@@ -1,10 +1,9 @@
 # ARPGBase
-## A Starter Project Framework for an Action RPG Style game
-This is a starter project/template to allow anyone to create a stats-driven action RPG-style game with a character leveling system and ability Unlock System.
-The system will also have equipable weapons, armor, and a basic magic system. 
+## A Starter Project for an Action RPG Style game
+
+Welcome to this starter project for making an Action RPG game with Unreal Engine. This project intends to have all the starting code for you to start making your own stats-driven Action RPG game. Towards That end, this game has a base implementation of the Unreal Engine Ability System, Gameplay attributes, Damage sweeps, Danmage calculation, and Game tags in order to make a modular framework.
 
 ## Current Features
-
 ### Game Ability System
 The Base character is configured to use the ability system and has a basic Attribute set with RPG-like stats
 ### Damage sweep
